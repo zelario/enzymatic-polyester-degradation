@@ -1,0 +1,39 @@
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Virtual environments (if any created accidentally)
+.venv/
+venv/
+ENV/
+env/
+
+# Docker & local cache
+.docker/
+*.log
+
+# Data directories (keep directory structure, don't commit large datasets/models)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+
+# Model checkpoints & large binary weights / embeddings
+models/*.pt
+models/*.bin
+models/*.onnx
+*.h5
+*.npy
+*.npz
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
