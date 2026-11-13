@@ -18,7 +18,7 @@ The goal is to test whether machine learning predictors of plastic-degrading enz
 
 ### Option 1: Google Colab (Recommended)
 1. Push this repository to GitHub.
-2. Open [Google Colab](https://colab.research.google.com/) -> **GitHub** tab -> select your repo -> open `notebooks/01_checkpoint_1_analysis.ipynb`.
+2. Open [Google Colab](https://colab.research.google.com/) -> **GitHub** tab -> select your repo -> open `notebooks/01_data_exploration_and_baseline.ipynb`.
 3. Run the first cell to automatically clone the repo and load `src/`.
 
 ### Option 2: Locally
@@ -26,4 +26,12 @@ The goal is to test whether machine learning predictors of plastic-degrading enz
 pip install rdkit biopython scikit-learn pandas numpy matplotlib seaborn
 jupyter lab
 ```
+
+---
+
+## Project Documentation
+
+* [Checkpoint 1: Question, Data Strategy & Team Roles](file:///docs/CHECKPOINT_1.md)
+* [Data Sources and Computational Tools Guide](file:///docs/DATA_SOURCES.md)
+* [Agents & Architecture Guide](file:///AGENTS.md)
 
