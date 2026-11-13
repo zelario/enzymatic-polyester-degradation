@@ -53,5 +53,8 @@ Work is distributed across five members according to domain expertise:
 - [x] **Research question in one sentence** stated clearly with biological context.
 - [x] **Plan B for the data** explicitly defined with fallback databases and UniProt API integration.
 - [x] **Roles split** formally assigned across all five group members.
-- [ ] **Dataset check** executing on real data with QC summary table.
-- [ ] **Baseline method and first number** computed via cross-validation and presented in the notebook.
+- [x] **Dataset check** executing on real data with QC summary table (`notebooks/01_data_exploration_and_baseline.ipynb`).
+- [x] **Baseline method and first number** computed via 5-fold cross-validation and presented in the notebook:
+  - *Dummy Baseline (Most Frequent)*: Accuracy = 0.6763, ROC-AUC = 0.5000
+  - *Logistic Regression (AAC)*: Accuracy = 0.7588, ROC-AUC = 0.7657
+  - *Random Forest (AAC)*: Accuracy = 0.8845, F1-Score = 0.9165, ROC-AUC = 0.9562

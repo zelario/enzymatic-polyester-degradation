@@ -18,6 +18,8 @@ env/
 # Data directories (keep directory structure, don't commit large datasets/models)
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/pazy_proteins.json
+!data/raw/plasticdb_proteins.tsv
 data/processed/*
 !data/processed/.gitkeep
 data/splits/*
