@@ -66,7 +66,7 @@ from pathlib import Path
 if 'google.colab' in sys.modules:
     print("🚀 Running in Google Colab!")
     if not os.path.exists("src"):
-        !git clone https://github.com/zelario/bioinformatics-project.git repo
+        !git clone https://github.com/zelario/enzymatic-polyester-degradation.git repo
         %cd repo
     !pip install -q rdkit biopython pandas numpy matplotlib seaborn scikit-learn
 else:
