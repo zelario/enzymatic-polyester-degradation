@@ -78,9 +78,4 @@ if project_root.name == 'notebooks':
     project_root = project_root.parent
 sys.path.insert(0, str(project_root))
 
-try:
-    %load_ext autoreload
-    %autoreload 2
-except Exception:
-    pass
 ```

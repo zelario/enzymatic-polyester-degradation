@@ -1,0 +1,20 @@
+{
+  "python.defaultInterpreterPath": "C:/Users/joseg/.venvs/bioinformatics-project/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportUndefinedVariable": "none",
+    "reportUnusedImport": "none"
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.ipynb_checkpoints": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "python.analysis.exclude": [
+    "**/__pycache__",
+    "**/.pytest_cache"
+  ]
+}

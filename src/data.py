@@ -1,11 +1,13 @@
 import json
 import os
 import urllib.request
+from pathlib import Path
 import pandas as pd
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+RAW_PAZY_PATH = str(PROJECT_ROOT / "data" / "raw" / "pazy_proteins.json")
+RAW_PLASTICDB_PATH = str(PROJECT_ROOT / "data" / "raw" / "plasticdb_proteins.tsv")
 PAZY_API_URL = "https://api.pazy.eu/api/proteins/json/"
-RAW_PAZY_PATH = "data/raw/pazy_proteins.json"
-RAW_PLASTICDB_PATH = "data/raw/plasticdb_proteins.tsv"
 
 
 def download_pazy_dataset(destination_path: str = RAW_PAZY_PATH) -> str:
@@ -16,7 +18,10 @@ def download_pazy_dataset(destination_path: str = RAW_PAZY_PATH) -> str:
         return destination_path
 
     os.makedirs(os.path.dirname(destination_path), exist_ok=True)
-    request = urllib.request.Request(PAZY_API_URL)
+    request = urllib.request.Request(
+        PAZY_API_URL,
+        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    )
     with urllib.request.urlopen(request) as response:
         data_bytes = response.read()
 
