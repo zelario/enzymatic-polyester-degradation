@@ -15,15 +15,12 @@ env/
 .docker/
 *.log
 
-# Data directories (keep directory structure, don't commit large datasets/models)
+# Data directories (don't commit large datasets/models)
 data/raw/*
-!data/raw/.gitkeep
 !data/raw/pazy_proteins.json
 !data/raw/plasticdb_proteins.tsv
 data/processed/*
-!data/processed/.gitkeep
 data/splits/*
-!data/splits/.gitkeep
 
 # Model checkpoints & large binary weights / embeddings
 models/*.pt
