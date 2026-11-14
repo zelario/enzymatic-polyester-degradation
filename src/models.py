@@ -4,6 +4,8 @@ from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold, cross_validate
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 
 
 def evaluate_baseline_models(
@@ -23,8 +25,9 @@ def evaluate_baseline_models(
 
     candidate_models = {
         "Dummy (Most Frequent)": DummyClassifier(strategy="most_frequent"),
-        "Logistic Regression (AAC)": LogisticRegression(
-            max_iter=1000, random_state=random_seed
+        "Logistic Regression (AAC)": make_pipeline(
+            StandardScaler(),
+            LogisticRegression(max_iter=1000, random_state=random_seed),
         ),
         "Random Forest (AAC)": RandomForestClassifier(
             n_estimators=100, random_state=random_seed

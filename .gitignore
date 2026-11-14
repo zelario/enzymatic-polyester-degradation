@@ -20,6 +20,7 @@ data/raw/*
 !data/raw/pazy_proteins.json
 !data/raw/plasticdb_proteins.tsv
 data/processed/*
+!data/processed/pazy_clean.csv
 data/splits/*
 
 # Model checkpoints & large binary weights / embeddings

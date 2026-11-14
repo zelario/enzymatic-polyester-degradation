@@ -19,15 +19,18 @@ def plot_dataset_exploration(dataset: pd.DataFrame):
     # Plot 2: Substrate degradation activity counts
     activity_counts = pd.Series(
         {
-            "Active on PET": dataset["active_on_pet"].sum(),
-            "Active on PUR": dataset["active_on_pur"].sum(),
-            "Active on PLA": dataset["active_on_pla"].sum(),
-            "Other Substrates": len(dataset) - dataset["active_on_pet"].sum(),
+            "PET reported": dataset["reported_on_pet"].sum(),
+            "PUR reported": dataset["reported_on_pur"].sum(),
+            "PLA reported": dataset["reported_on_pla"].sum(),
+            "None of these reported": (
+                dataset[["reported_on_pet", "reported_on_pur", "reported_on_pla"]]
+                .eq(0).all(axis=1).sum()
+            ),
         }
     )
 
     activity_counts.plot(kind="bar", ax=axes[1], color=["#e26d5c", "#38b000", "#ffb703", "#8d99ae"])
-    axes[1].set_title("Substrate Degradation Activity", fontweight="bold")
+    axes[1].set_title("Reported Substrates (Counts Can Overlap)", fontweight="bold")
     axes[1].set_ylabel("Enzyme Count")
     axes[1].tick_params(axis="x", rotation=15)
 

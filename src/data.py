@@ -35,6 +35,8 @@ def load_pazy_dataset(file_path: str = RAW_PAZY_PATH) -> pd.DataFrame:
     """
     Loads the PAZy dataset into a pandas DataFrame.
     Filters out entries without amino acid sequences and standardizes sequence format.
+    Reported substrate flags indicate database annotations, not experimental negatives:
+    a zero means that activity on that substrate is not reported in this snapshot.
     """
     if not os.path.exists(file_path):
         download_pazy_dataset(file_path)
@@ -50,11 +52,17 @@ def load_pazy_dataset(file_path: str = RAW_PAZY_PATH) -> pd.DataFrame:
 
         # Standardize amino acid sequence: remove whitespace and convert to uppercase
         clean_sequence = "".join(sequence.split()).upper()
+        if not clean_sequence:
+            continue
 
         substrates_list = [
             substrate.get("name", "") for substrate in entry.get("substrates", [])
         ]
-        substrates_text = " ".join(substrates_list).lower()
+        substrate_abbreviations = {
+            (substrate.get("abbreviation") or "").strip().upper()
+            for substrate in entry.get("substrates", [])
+        }
+        substrate_names = {name.strip().casefold() for name in substrates_list}
 
         organism_info = entry.get("organism") or {}
 
@@ -67,14 +75,17 @@ def load_pazy_dataset(file_path: str = RAW_PAZY_PATH) -> pd.DataFrame:
                 "uniprot_accession": entry.get("uniprot_accession"),
                 "organism_name": organism_info.get("scientific_name"),
                 "reported_substrates": ", ".join(substrates_list),
-                "active_on_pet": int(
-                    "terephthalate" in substrates_text or "pet" in substrates_text
+                "reported_on_pet": int(
+                    "PET" in substrate_abbreviations
+                    or "polyethylene terephthalate" in substrate_names
                 ),
-                "active_on_pur": int(
-                    "polyurethane" in substrates_text or "pur" in substrates_text
+                "reported_on_pur": int(
+                    "PUR" in substrate_abbreviations
+                    or "polyurethane" in substrate_names
                 ),
-                "active_on_pla": int(
-                    "lactic" in substrates_text or "pla" in substrates_text
+                "reported_on_pla": int(
+                    "PLA" in substrate_abbreviations
+                    or "polylactic acid" in substrate_names
                 ),
             }
         )
@@ -103,14 +114,14 @@ def check_dataset_quality(dataset: pd.DataFrame) -> pd.Series:
         "Sequences with non-canonical amino acids": non_canonical_count,
         "Mean sequence length": round(dataset["sequence_length"].mean(), 1),
         "Min / Max sequence length": f"{dataset['sequence_length'].min()} - {dataset['sequence_length'].max()}",
-        "Active on PET": (
-            dataset["active_on_pet"].sum() if "active_on_pet" in dataset.columns else 0
+        "Reported on PET": (
+            dataset["reported_on_pet"].sum() if "reported_on_pet" in dataset.columns else 0
         ),
-        "Active on PUR": (
-            dataset["active_on_pur"].sum() if "active_on_pur" in dataset.columns else 0
+        "Reported on PUR": (
+            dataset["reported_on_pur"].sum() if "reported_on_pur" in dataset.columns else 0
         ),
-        "Active on PLA": (
-            dataset["active_on_pla"].sum() if "active_on_pla" in dataset.columns else 0
+        "Reported on PLA": (
+            dataset["reported_on_pla"].sum() if "reported_on_pla" in dataset.columns else 0
         ),
     }
     return pd.Series(quality_summary)
