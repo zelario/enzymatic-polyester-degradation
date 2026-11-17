@@ -47,7 +47,7 @@ team access; other processed files remain ignored by Git.
 
 ### Option 1: Google Colab (Recommended)
 1. Push this repository to GitHub.
-2. Open [Google Colab](https://colab.research.google.com/) -> **GitHub** tab -> select your repo -> open `notebooks/01_data_exploration_and_baseline.ipynb`.
+2. Open [Google Colab](https://colab.research.google.com/) -> **GitHub** tab -> select the repository -> open `notebooks/01_data_exploration_and_baseline.ipynb`.
 3. Run the first cell to automatically clone the repo and load `src/`.
 
 ### Option 2: Locally

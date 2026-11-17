@@ -24,12 +24,12 @@ def evaluate_baseline_models(
     metric_names = ["accuracy", "precision", "recall", "f1", "roc_auc"]
 
     candidate_models = {
-        "Dummy (Most Frequent)": DummyClassifier(strategy="most_frequent"),
-        "Logistic Regression (AAC)": make_pipeline(
+        "Dummy": DummyClassifier(strategy="most_frequent"),
+        "Logistic Regression": make_pipeline(
             StandardScaler(),
             LogisticRegression(max_iter=1000, random_state=random_seed),
         ),
-        "Random Forest (AAC)": RandomForestClassifier(
+        "Random Forest": RandomForestClassifier(
             n_estimators=100, random_state=random_seed
         ),
     }
