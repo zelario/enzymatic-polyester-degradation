@@ -35,3 +35,4 @@ models/*.onnx
 .idea/
 .DS_Store
 Thumbs.db
+desktop.ini
