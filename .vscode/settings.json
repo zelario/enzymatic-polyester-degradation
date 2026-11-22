@@ -11,7 +11,8 @@
     "**/.pytest_cache": true,
     "**/.ipynb_checkpoints": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    "**/desktop.ini": true
   },
   "python.analysis.exclude": [
     "**/__pycache__",
