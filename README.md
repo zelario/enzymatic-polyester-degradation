@@ -6,11 +6,11 @@
 
 ## Research Question
 
-> *"How well do sequence-based predictors of enzymatic polyester degradation generalise to unseen enzyme families and new polymer chemistries?"*
+> *"How well do sequence-based predictors generalise across remote homology enzyme clusters when evaluated independently on polymers with sufficient experimental coverage (PET, PUR, and PLA)?"*
 
-The goal is to test whether machine learning predictors of plastic-degrading enzymes can generalize when evaluated on:
-1. **Unseen enzyme families** (clustered with MMseqs2 to prevent homology leakage).
-2. **Novel polymer chemistries** (e.g., trained on PET and tested on PUR or aliphatic polyesters).
+The goal is to test whether machine learning predictors of plastic-degrading enzymes can generalize when evaluated across **unseen enzyme families** (clustered with MMseqs2 at varying sequence identity thresholds to prevent homology leakage) across polymers with sufficient experimental coverage:
+1. **Homology-reduced splits** (clustering with MMseqs2 at identity thresholds such as 30%, 50%, and 70%).
+2. **Substrate evaluation** (evaluating generalization on well-represented polymer classes: PET, PUR, and PLA).
 
 ---
 

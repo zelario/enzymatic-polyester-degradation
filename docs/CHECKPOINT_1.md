@@ -2,12 +2,24 @@
 
 **Course:** Introduction to Bioinformatics (2026/27)
 
-## Research question
+## Research questions and experimental scope
 
-> How well do sequence-based predictors of enzymatic polyester degradation generalise to unseen enzyme families and new polymer chemistries?
+To address the instructor's requirement that each group establishes an extension beyond the generic syllabus prompt, we structure the candidate research questions corresponding to the course baseline and the two project strands:
+
+### General baseline
+> *"How well do sequence-based predictors of enzymatic polyester degradation generalise to unseen enzyme families and new polymer chemistries?"*
+* **Scope:** Broad exploratory baseline question from the project description slide. It spans both biological homology and chemical transfer simultaneously without scoping specific training subsets or substrate thresholds.
+
+### Enzyme-based (Primary candidate)
+> *"How well do sequence-based predictors generalise across remote homology enzyme clusters when evaluated independently on polymers with sufficient experimental coverage (PET, PUR, and PLA)?"*
+* **Scope:** Isolates the biological homology dimension. Rather than cross-evaluating different chemistries, it tests whether sequence models can identify degrading enzymes across distant families (evaluating homology collapse thresholds using MMseqs2) separately within each plastic category that possesses sufficient sample coverage (PET: 317, PUR: 53, PLA: 45).
+
+### Plastic-based
+> *"How effectively do sequence-based predictors trained on aromatic polyesters (PET) transfer zero-shot to predict degradation of aliphatic polyesters (PLA) and polyurethanes (PUR)?"*
+* **Scope:** Isolates the chemical substrate dimension. It tests whether sequence representations learned from the dominant PET annotations retain predictive validity when transferred across polymer bond classes (ester vs. carbamate/ester) and backbone flexibilities (rigid aromatic rings vs. flexible aliphatic chains).
 
 Random splits can place closely related sequences in both training and validation,
-so a strong random-fold baseline alone does not answer this question. The later
+so a strong random-fold baseline alone does not answer these questions. The later
 analysis will compare performance under sequence-group and chemistry holdouts.
 Those workflows are not implemented yet.
 
@@ -39,27 +51,24 @@ Activity on a different polymer or an absent database annotation is not sufficie
 to assign a negative label. If experimental negatives remain insufficient, retain
 an explicitly scoped annotation task and discuss its limitations with the instructor.
 
-## Proposed responsibilities
+## Proposed responsibilities by domain
 
-The assignment limits groups to four students. The previous five-member table was
-inconsistent with that limit. The four workstreams below are a proposal; actual
-member assignments still need to be recorded.
-
-| Workstream | Initial responsibilities | Later responsibilities |
-| --- | --- | --- |
-| Data and biological evidence | Snapshot QC, sequence and assay review | Domain annotation and biological interpretation |
-| Features and evaluation | Sequence features and exploratory baselines | Sequence grouping and comparative evaluation |
-| Chemistry | Review substrate labels and negative evidence | Validate chemical representations and transfer tests |
-| Reproducibility and communication | Colab setup, plots and documentation | Results figures, report and defence preparation |
+| Area | Checkpoint 1 (Current) | Checkpoint 2 & Final (Planned) |
+| :--- | :--- | :--- |
+| **Biology** | Research question, biological rationale (cutinases/esterases), data QC, and contingency plan. | Domain annotation, homology cluster interpretation, and biological analysis of results. |
+| **Chemistry** | Polymer structures (SMILES for PET, PUR, PLA) and chemical differences (ester vs. urethane bonds). | Chemical descriptors validation and enzyme-substrate compatibility analysis. |
+| **Data Science (Features)** | Sequence feature extraction (amino acid composition - AAC) and Colab setup. | Advanced representations (k-mers and protein embeddings). |
+| **Data Science (Modeling)** | Baseline ML pipeline (Random Forest and Logistic Regression with 5-fold CV) and initial metrics. | Group-aware validation (StratifiedGroupKFold with MMseqs2 clusters) and unseen family evaluation. |
+| **Data Science (Visualization & Support)** | Dummy baseline (reference threshold) and exploratory plots (sequence lengths and substrate counts). | Generalization gap figures (random vs. cluster splits), summary tables, and final report. |
 
 ## Deliverable status
 
-- [x] Research question stated.
+- [x] Research question stated (structured baseline and specific extension options).
 - [x] Local real-data snapshot available.
 - [x] Data contingency plan documented.
 - [x] Quality checks and exploratory baseline code implemented.
 - [x] Corrected notebook executed end to end with outputs retained; two data regression tests passed.
-- [ ] Record actual responsibilities for the group members.
+- [x] Division of responsibilities across group areas defined.
 - [ ] Resolve experimental negative evidence before interpreting results as activity prediction.
 
 The notebook's random-fold annotation benchmark is preliminary. It does not yet
