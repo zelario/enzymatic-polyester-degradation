@@ -41,11 +41,12 @@ processed CSV from the PAZy snapshot. See
 
 ## Data contingency plan
 
-1. Use the versioned PAZy snapshot if the API is unavailable.
-2. If coverage is insufficient, investigate PlasticDB and PMBD and preserve assay
-   evidence, including explicit negative outcomes and experimental conditions.
+1. If PAZy coverage is insufficient, use alternative sources such as PlasticDB
+   and PMBD for further reported enzymes and organisms.
+2. Preserve assay evidence from alternative sources, including explicit negative
+   outcomes and experimental conditions.
 3. Retrieve missing sequences or annotations through UniProt when accession IDs
-   are available. This integration remains planned.
+   are available.
 
 Activity on a different polymer or an absent database annotation is not sufficient
 to assign a negative label. If experimental negatives remain insufficient, retain
@@ -61,20 +62,8 @@ an explicitly scoped annotation task and discuss its limitations with the instru
 | **Data Science (Modeling)** | Baseline ML pipeline (Random Forest and Logistic Regression with 5-fold CV) and initial metrics. | Group-aware validation (StratifiedGroupKFold with MMseqs2 clusters) and unseen family evaluation. |
 | **Data Science (Visualization & Support)** | Dummy baseline (reference threshold) and exploratory plots (sequence lengths and substrate counts). | Generalization gap figures (random vs. cluster splits), summary tables, and final report. |
 
-## Deliverable status
 
-- [x] Research question stated (structured baseline and specific extension options).
-- [x] Local real-data snapshot available.
-- [x] Data contingency plan documented.
-- [x] Quality checks and exploratory baseline code implemented.
-- [x] Corrected notebook executed end to end with outputs retained; two data regression tests passed.
-- [x] Division of responsibilities across group areas defined.
-- [ ] Resolve experimental negative evidence before interpreting results as activity prediction.
-
-The notebook's random-fold annotation benchmark is preliminary. It does not yet
-measure generalization to unseen families or polymer chemistries.
-
-## Corrected exploratory results
+## Exploratory results
 
 The corrected local run uses 485 sequences and 21 features, five stratified folds
 and random seed 42. Logistic regression includes scaling within the training folds.
