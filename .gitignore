@@ -36,3 +36,5 @@ models/*.onnx
 .DS_Store
 Thumbs.db
 desktop.ini
+
+.git.bak
