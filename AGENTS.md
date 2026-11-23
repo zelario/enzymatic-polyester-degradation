@@ -9,7 +9,7 @@ This document serves as the operational guide for AI assistants and team members
 * **Course:** Introduction to Bioinformatics (2026/27) — 4th Year, 1st Semester.
 * **Topic:** Enzymatic Degradation of Polyesters.
 * **Core Research Question:**
-  > *"How well do sequence-based predictors of enzymatic polyester degradation generalise to unseen enzyme families and new polymer chemistries?"*
+  > *"How accurately can sequence-based models predict polyester degradation across remote homology enzyme clusters across different plastic substrates?"*
 
 ---
 

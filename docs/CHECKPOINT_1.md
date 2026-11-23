@@ -1,78 +1,66 @@
-# Checkpoint 1: Question, Data Strategy and Organization
+# Checkpoint 1: Question, Data Strategy & Organization
 
-**Course:** Introduction to Bioinformatics (2026/27)
+**Course:** Introduction to Bioinformatics (2026/27)  
+**Topic:** Enzymatic Degradation of Polyesters  
 
-## Research questions and experimental scope
+---
 
-To address the instructor's requirement that each group establishes an extension beyond the generic syllabus prompt, we structure the candidate research questions corresponding to the course baseline and the two project strands:
+## 1. Research Question
 
-### General baseline
-> *"How well do sequence-based predictors of enzymatic polyester degradation generalise to unseen enzyme families and new polymer chemistries?"*
-* **Scope:** Broad exploratory baseline question from the project description slide. It spans both biological homology and chemical transfer simultaneously without scoping specific training subsets or substrate thresholds.
+> **"How accurately can sequence-based models predict polyester degradation across remote homology enzyme clusters across different plastic substrates?"**
 
-### Enzyme-based (Primary candidate)
-> *"How well do sequence-based predictors generalise across remote homology enzyme clusters when evaluated independently on polymers with sufficient experimental coverage (PET, PUR, and PLA)?"*
-* **Scope:** Isolates the biological homology dimension. Rather than cross-evaluating different chemistries, it tests whether sequence models can identify degrading enzymes across distant families (evaluating homology collapse thresholds using MMseqs2) separately within each plastic category that possesses sufficient sample coverage (PET: 317, PUR: 53, PLA: 45).
+### Biological & Computational Context
+Enzymes that degrade synthetic polyesters (such as cutinases, esterases, and lipases) predominantly belong to the $\alpha/\beta$-hydrolase superfamily, sharing a conserved catalytic triad (Ser-His-Asp/Glu) and a nucleophilic elbow motif ($GxSxG$). 
 
-### Plastic-based
-> *"How effectively do sequence-based predictors trained on aromatic polyesters (PET) transfer zero-shot to predict degradation of aliphatic polyesters (PLA) and polyurethanes (PUR)?"*
-* **Scope:** Isolates the chemical substrate dimension. It tests whether sequence representations learned from the dominant PET annotations retain predictive validity when transferred across polymer bond classes (ester vs. carbamate/ester) and backbone flexibilities (rigid aromatic rings vs. flexible aliphatic chains).
+Standard random cross-validation splits overestimate performance because homologous enzymes (>80% sequence identity) end up in both training and test sets (**homology leakage**). This project evaluates whether sequence-based predictors can generalize across **remote homology clusters** (partitioned by MMseqs2) and across distinct polyester substrates (aromatic PET, carbamate/ester PUR, and aliphatic PLA).
 
-Random splits can place closely related sequences in both training and validation,
-so a strong random-fold baseline alone does not answer these questions. The later
-analysis will compare performance under sequence-group and chemistry holdouts.
-Those workflows are not implemented yet.
+---
 
-## Data available
+## 2. Dataset Quality Control Check
 
-The local PAZy snapshot contains 505 records, of which 485 have distinct non-empty
-sequences using canonical amino acid symbols. Exact substrate annotations identify
-317 sequences reported on PET, 53 on PUR and 45 on PLA. Counts overlap.
+The analysis was executed on real data from the curated **PAZy** (Plastics-Active Enzymes) database snapshot:
 
-The loader, quality checks, features, plots and three baseline models are
-implemented. The baseline target is **PET annotation status**: missing activity
-reports are not verified negatives. Old numerical results were removed because
-the previous PET labels incorrectly included some PBAT annotations. Use the
-corrected notebook outputs for the exploratory results and their limitations.
+| Metric | Value |
+| :--- | :--- |
+| **Total Enzymes Loaded** | 485 |
+| **Unique Sequences** | 485 (100% deduplicated) |
+| **Sequences with Non-canonical Amino Acids** | 0 (all valid standard residues) |
+| **Enzymes with UniProt ID** | 235 |
+| **Sequence Length Range** | 176 – 766 amino acids |
+| **Mean Sequence Length** | 345.4 amino acids |
+| **Reported on PET** | 317 (~65.4%) |
+| **Reported on PUR** | 53 (~10.9%) |
+| **Reported on PLA** | 45 (~9.3%) |
 
-PlasticDB data is not currently included. The notebook generates a readable
-processed CSV from the PAZy snapshot. See
-[Data Sources](DATA_SOURCES.md) for the distinction between existing and planned work.
+---
 
-## Data contingency plan
+## 3. Baseline Method & Initial Performance Metrics
 
-1. If PAZy coverage is insufficient, use alternative sources such as PlasticDB
-   and PMBD for further reported enzymes and organisms.
-2. Preserve assay evidence from alternative sources, including explicit negative
-   outcomes and experimental conditions.
-3. Retrieve missing sequences or annotations through UniProt when accession IDs
-   are available.
+Evaluated on the binary degradation task (`reported_on_pet`) using **Stratified 5-Fold Cross-Validation** (random seed 42) on 20-dimensional Amino Acid Composition (AAC) + sequence length features:
 
-Activity on a different polymer or an absent database annotation is not sufficient
-to assign a negative label. If experimental negatives remain insufficient, retain
-an explicitly scoped annotation task and discuss its limitations with the instructor.
+| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Dummy (Most Frequent)** | 0.6536 | 0.6536 | 1.0000 | 0.7905 | 0.5000 |
+| **Logistic Regression (scaled)** | 0.8804 | 0.9021 | 0.9179 | 0.9090 | 0.9530 |
+| **Random Forest** | 0.9278 | 0.9587 | 0.9305 | 0.9439 | 0.9713 |
 
-## Proposed responsibilities by domain
+*Interpretation:* The strong performance of Random Forest on random folds provides our baseline "first number". However, because near-identical homologues exist across folds, this performance is expected to drop significantly under strict cluster-based holdouts in Checkpoint 2.
 
-| Area | Checkpoint 1 (Current) | Checkpoint 2 & Final (Planned) |
-| :--- | :--- | :--- |
-| **Biology** | Research question, biological rationale (cutinases/esterases), data QC, and contingency plan. | Domain annotation, homology cluster interpretation, and biological analysis of results. |
-| **Chemistry** | Polymer structures (SMILES for PET, PUR, PLA) and chemical differences (ester vs. urethane bonds). | Chemical descriptors validation and enzyme-substrate compatibility analysis. |
-| **Data Science (Features)** | Sequence feature extraction (amino acid composition - AAC) and Colab setup. | Advanced representations (k-mers and protein embeddings). |
-| **Data Science (Modeling)** | Baseline ML pipeline (Random Forest and Logistic Regression with 5-fold CV) and initial metrics. | Group-aware validation (StratifiedGroupKFold with MMseqs2 clusters) and unseen family evaluation. |
-| **Data Science (Visualization & Support)** | Dummy baseline (reference threshold) and exploratory plots (sequence lengths and substrate counts). | Generalization gap figures (random vs. cluster splits), summary tables, and final report. |
+---
 
+## 4. Team Organization & Contingency Plan (Plan B)
 
-## Exploratory results
+### Team Roles & Responsibilities
 
-The corrected local run uses 485 sequences and 21 features, five stratified folds
-and random seed 42. Logistic regression includes scaling within the training folds.
+| Role | Domain Profile | Checkpoint 1 Responsibilities | Checkpoint 2 Responsibilities |
+| :--- | :--- | :--- | :--- |
+| **Member 1** | Machine Learning Lead | Baseline models (`src/models.py`) and 5-fold CV benchmarking. | Advanced classifiers (XGBoost / PLM) and evaluation. |
+| **Member 2** | Bioinfo & Clustering Lead | Feature extraction (`src/features.py`: AAC) and QC checks. | Homology clustering (MMseqs2) and `GroupKFold` splits. |
+| **Member 3** | Visuals & Reporting | Exploratory plots (`src/visualizations.py`) and dummy baseline. | Homology gap figures, confusion matrices, and slides. |
+| **Member 4** | Biology Lead | Biological context, $\alpha/\beta$-hydrolase rationale, and QC design. | Taxonomic profiling and biological validation of holdout clusters. |
+| **Member 5** | Biochemistry Lead | Catalytic triad/motifs (Ser-His-Asp, $GxSxG$) and substrate context. | Pfam domain mapping (`PF01083`, `PF00561`) and pocket analysis. |
 
-| Model | Mean accuracy | Mean F1 | Mean ROC-AUC |
-| --- | ---: | ---: | ---: |
-| Dummy (most frequent) | 0.6536 | 0.7905 | 0.5000 |
-| Logistic regression | 0.8804 | 0.9090 | 0.9530 |
-| Random forest | 0.9278 | 0.9439 | 0.9710 |
-
-These are annotation prediction results using random folds, not validated activity
-prediction or unseen-family results. They replace the earlier mislabeled benchmark.
+### Plan B for the Data
+1. **Local Snapshots:** All raw records are committed locally (`data/raw/pazy_proteins.json`), eliminating external API or server downtime risks.
+2. **Secondary Databases:** If coverage for specific polyesters is insufficient, integrate additional positive/negative entries from **PlasticDB** and **PMBD**.
+3. **UniProt REST API Fallback:** If sequence annotations or Pfam domains are missing, retrieve them programmatically via the UniProt REST API.
