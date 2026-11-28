@@ -15,12 +15,12 @@ To evaluate true generalization to unseen enzyme families without homology leaka
 
 ## 2. Dataset Curation & Analysis Pipeline
 
-1. **Dataset Curation (`notebooks/02_data_curation.ipynb`):**
+1. **Dataset Curation (`notebooks/01_data_curation.ipynb`):**
    - **Verified Positives (317):** Retain only PAZy enzymes with verified PET degradation (`reported_on_pet == 1`). The 168 PAZy enzymes annotated only on other plastics (e.g., PA, PUR, PLA) are **excluded** rather than falsely labeled as `0`, because "not reported" is not experimental inactivity.
    - **Biological Hard Negatives (317):** Retrieve reviewed carboxylic ester hydrolases (`EC 3.1.1.*`, 150–800 amino acids) from **UniProt Swiss-Prot** (`data/raw/uniprot/uniprot_esterase_negatives.tsv`), excluding any sequence or accession overlapping with PAZy. Using natural esterases of matching length forces the classifier to learn PET-specific determinants rather than trivially separating enzymes from random non-enzymatic proteins.
    - **Output:** Balanced 634-sequence dataset (`data/processed/curated/curated_pet_dataset.csv`).
 
-2. **Sequence Clustering (`notebooks/03_homology_clustering.ipynb`):**
+2. **Sequence Clustering (`notebooks/02_homology_clustering.ipynb`):**
    - Export all 634 curated sequences (positives + negative controls) to FASTA format.
    - Cluster sequences using **MMseqs2** (`createdb` $\rightarrow$ `cluster` $\rightarrow$ `createtsv`, coverage `0.8`, `--cov-mode 0`) at three progressively stricter sequence identity thresholds: **70%**, **50%**, and **30%** (the homology *twilight zone*).
    - Save cluster assignments (`data/processed/clustering/curated_pet_clusters.csv`) for reproducible group-aware evaluation.
@@ -71,8 +71,8 @@ To evaluate true generalization to unseen enzyme families without homology leaka
 ## 6. Deliverable Status
 
 - [x] Research question scoped to PET degradation across remote homology clusters.
-- [x] Dataset curation notebook created (`notebooks/02_data_curation.ipynb`) with verified PET positives and UniProt Swiss-Prot `EC 3.1.1.*` negative controls.
-- [x] Homology clustering notebook created (`notebooks/03_homology_clustering.ipynb`).
+- [x] Dataset curation notebook created (`notebooks/01_data_curation.ipynb`) with verified PET positives and UniProt Swiss-Prot `EC 3.1.1.*` negative controls.
+- [x] Homology clustering notebook created (`notebooks/02_homology_clustering.ipynb`).
 - [x] Curated dataset and MMseqs2 clusters generated (`data/processed/clustering/curated_pet_clusters.csv`).
 - [ ] `StratifiedGroupKFold` evaluation run end-to-end across all thresholds.
 - [ ] At least two methods/representations compared under homology-reduced splits.

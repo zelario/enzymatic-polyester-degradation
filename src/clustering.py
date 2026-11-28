@@ -1,5 +1,5 @@
 # ==============================================================================
-# Used in: notebooks/03_homology_clustering.ipynb
+# Used in: notebooks/02_homology_clustering.ipynb
 # ==============================================================================
 
 from collections import Counter

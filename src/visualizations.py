@@ -4,7 +4,7 @@ import seaborn as sns
 
 
 # ==============================================================================
-# Used in: notebooks/01_data_exploration_and_baseline.ipynb
+# Used in: notebooks/00_scope_exploration.ipynb
 # ==============================================================================
 
 
@@ -44,7 +44,7 @@ def plot_dataset_exploration(dataset: pd.DataFrame):
 
 
 # ==============================================================================
-# Used in: notebooks/02_data_curation.ipynb
+# Used in: notebooks/01_data_curation.ipynb
 # ==============================================================================
 
 
@@ -83,7 +83,7 @@ def plot_curated_dataset_balance(curated_dataset: pd.DataFrame):
 
 
 # ==============================================================================
-# Used in: notebooks/03_homology_clustering.ipynb
+# Used in: notebooks/02_homology_clustering.ipynb
 # ==============================================================================
 
 

@@ -1,5 +1,5 @@
 # ==============================================================================
-# Used in: notebooks/01_data_exploration_and_baseline.ipynb
+# Used in: notebooks/00_scope_exploration.ipynb
 # ==============================================================================
 
 import pandas as pd

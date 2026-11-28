@@ -17,7 +17,7 @@ UNIPROT_API_URL = "https://rest.uniprot.org/uniprotkb/search"
 
 
 # ==============================================================================
-# Used in: notebooks/01_data_exploration_and_baseline.ipynb
+# Used in: notebooks/00_scope_exploration.ipynb
 # ==============================================================================
 
 
@@ -139,7 +139,7 @@ def check_dataset_quality(dataset: pd.DataFrame) -> pd.Series:
 
 
 # ==============================================================================
-# Used in: notebooks/02_data_curation.ipynb
+# Used in: notebooks/01_data_curation.ipynb
 # ==============================================================================
 
 
@@ -269,7 +269,7 @@ def build_curated_pet_dataset(
 
 
 # ==============================================================================
-# Used in: notebooks/03_homology_clustering.ipynb
+# Used in: notebooks/02_homology_clustering.ipynb
 # ==============================================================================
 
 

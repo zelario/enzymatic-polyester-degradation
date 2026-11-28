@@ -37,7 +37,7 @@ Focus strictly on the foundational stage:
 
 3. **No Academic Terminology in Code:**
    - Do **NOT** use words like "checkpoint", "checkpoint 1", or "milestone" inside code, docstrings, comments, variable names, or notebook filenames.
-   - Name files and modules purely by their scientific and functional purpose (e.g., `01_data_exploration_and_baseline.ipynb`, `data.py`, `features.py`, `models.py`).
+   - Name files and modules purely by their scientific and functional purpose (e.g., `00_scope_exploration.ipynb`, `data.py`, `features.py`, `models.py`).
 
 4. **Step-by-Step, User-Directed Execution:**
    - **DO NOT build ahead of the user.** Never write features, models, machine learning pipelines, or complex workflows unless the user explicitly asks for them.
