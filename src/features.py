@@ -1,3 +1,7 @@
+# ==============================================================================
+# Used in: notebooks/01_data_exploration_and_baseline.ipynb
+# ==============================================================================
+
 import pandas as pd
 
 STANDARD_AMINO_ACIDS = list("ACDEFGHIKLMNPQRSTVWY")

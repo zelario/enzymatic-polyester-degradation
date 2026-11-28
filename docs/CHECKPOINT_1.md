@@ -7,12 +7,12 @@
 
 ## 1. Research Question
 
-> **"How accurately can sequence-based models predict polyester degradation across remote homology enzyme clusters across different plastic substrates?"**
+> **"How accurately can sequence-based models predict enzymatic PET degradation across remote homology enzyme clusters?"**
 
 ### Biological & Computational Context
 Enzymes that degrade synthetic polyesters (such as cutinases, esterases, and lipases) predominantly belong to the $\alpha/\beta$-hydrolase superfamily, sharing a conserved catalytic triad (Ser-His-Asp/Glu) and a nucleophilic elbow motif ($GxSxG$). 
 
-Standard random cross-validation splits overestimate performance because homologous enzymes (>80% sequence identity) end up in both training and test sets (**homology leakage**). This project evaluates whether sequence-based predictors can generalize across **remote homology clusters** (partitioned by MMseqs2) and across distinct polyester substrates (aromatic PET, carbamate/ester PUR, and aliphatic PLA).
+Standard random cross-validation splits overestimate performance because homologous enzymes (>80% sequence identity) end up in both training and test sets (**homology leakage**). This project evaluates whether sequence-based predictors can generalize across **remote homology clusters** (partitioned by MMseqs2) specifically for **PET degradation**, which accounts for 317 of the 485 verified sequences (~65.4%) and provides sufficient statistical power for multi-fold cluster holdouts compared to underrepresented substrates (PUR: 53, PLA: 45).
 
 ---
 

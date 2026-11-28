@@ -16,11 +16,15 @@ env/
 *.log
 
 # Data directories (don't commit large datasets/models)
-data/raw/*
-!data/raw/pazy_proteins.json
-!data/raw/plasticdb_proteins.tsv
-data/processed/*
-!data/processed/pazy_clean.csv
+data/raw/**
+!data/raw/**/
+!data/raw/pazy/pazy_proteins.json
+!data/raw/uniprot/uniprot_esterase_negatives.tsv
+data/processed/**
+!data/processed/**/
+!data/processed/baseline/pazy_clean.csv
+!data/processed/curated/curated_pet_dataset.csv
+!data/processed/clustering/curated_pet_clusters.csv
 data/splits/*
 
 # Model checkpoints & large binary weights / embeddings

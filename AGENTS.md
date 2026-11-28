@@ -9,7 +9,7 @@ This document serves as the operational guide for AI assistants and team members
 * **Course:** Introduction to Bioinformatics (2026/27) — 4th Year, 1st Semester.
 * **Topic:** Enzymatic Degradation of Polyesters.
 * **Core Research Question:**
-  > *"How accurately can sequence-based models predict polyester degradation across remote homology enzyme clusters across different plastic substrates?"*
+  > *"How accurately can sequence-based models predict enzymatic PET degradation across remote homology enzyme clusters?"*
 
 ---
 
@@ -54,28 +54,16 @@ Focus strictly on the foundational stage:
 
 ---
 
-## 4. Google Colab & Environment Pattern
+## 4. Local Environment Pattern
 
-When creating Jupyter notebooks, use this standard setup in the first cell:
+When creating Jupyter notebooks, use this standard local setup in the first cell:
 
 ```python
 import sys
-import os
 from pathlib import Path
 
-if 'google.colab' in sys.modules:
-    print("🚀 Running in Google Colab!")
-    if not os.path.exists("src"):
-        !git clone https://github.com/zelario/enzymatic-polyester-degradation.git repo
-        %cd repo
-    !pip install -q rdkit biopython pandas numpy matplotlib seaborn scikit-learn
-else:
-    print("💻 Running locally.")
-
-# Add project root to sys.path
-project_root = Path('.').resolve()
-if project_root.name == 'notebooks':
+project_root = Path.cwd()
+if project_root.name == "notebooks":
     project_root = project_root.parent
 sys.path.insert(0, str(project_root))
-
 ```

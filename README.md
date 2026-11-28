@@ -6,11 +6,11 @@
 
 ## Research Question
 
-> *"How accurately can sequence-based models predict polyester degradation across remote homology enzyme clusters across different plastic substrates?"*
+> *"How accurately can sequence-based models predict enzymatic PET degradation across remote homology enzyme clusters?"*
 
-The goal is to test whether sequence-based machine learning predictors of plastic-degrading enzymes can generalize when evaluated across **unseen enzyme families** (clustered with MMseqs2 at varying sequence identity thresholds to prevent homology leakage):
+The goal is to test whether sequence-based machine learning predictors of PET-degrading enzymes can generalize when evaluated across **unseen enzyme families** (clustered with MMseqs2 at varying sequence identity thresholds to prevent homology leakage):
 1. **Homology-reduced splits** (clustering with MMseqs2 at identity thresholds such as 30%, 50%, and 70%).
-2. **Substrate evaluation** (evaluating generalization performance across different polyester substrates, such as PET, PUR, and PLA).
+2. **PET focus** (317 PET-annotated sequences out of 485 provide sufficient statistical coverage for robust cluster-based cross-validation, whereas other substrates such as PUR and PLA have too few positives).
 
 ---
 
